@@ -11,18 +11,18 @@ const PORT = process.env.PORT || 3000;
 
 // Security middleware
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            frameSrc: ["'self'", "*.articulate.com", "*.rise.com"],
-            scriptSrc: ["'self'", "'unsafe-inline'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://chat-ai.cisco.com"]
-        }
-    },
-    crossOriginEmbedderPolicy: false
+    contentSecurityPolicy: false,  // Disable CSP to allow iframe embedding
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false
 }));
+
+// Explicitly allow iframe embedding from anywhere
+app.use((req, res, next) => {
+    res.removeHeader('X-Frame-Options');
+    res.setHeader('X-Frame-Options', 'ALLOWALL');
+    res.setHeader('Content-Security-Policy', "frame-ancestors *");
+    next();
+});
 
 // CORS configuration
 const corsOptions = {
@@ -231,5 +231,6 @@ process.on('SIGTERM', () => {
 process.on('SIGINT', () => {
     server.close(() => process.exit(0));
 });
+
 
 module.exports = app;
