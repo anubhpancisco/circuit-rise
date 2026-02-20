@@ -1,0 +1,29 @@
+{
+  "name": "circuit-rise-integration",
+  "version": "1.0.0",
+  "description": "CircuIT AI Assistant for Articulate Rise",
+  "main": "mcp-server.js",
+  "scripts": {
+    "start": "node mcp-server.js"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
+  "keywords": [
+    "circuit",
+    "articulate-rise",
+    "cisco",
+    "ai-assistant"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.3.1"
+  }
+}
